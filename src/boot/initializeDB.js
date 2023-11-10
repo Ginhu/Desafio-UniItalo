@@ -1,11 +1,11 @@
 import { boot } from "quasar/wrappers";
-import { Loading, LocalStorage, SessionStorage } from "quasar";
+import { LocalStorage } from "quasar";
 
 // "async" is optional;
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
 export default boot(() => {
   const usersDB = LocalStorage.getItem("usersDB");
-  const usersSessions = LocalStorage.getItem("usersSessions");
+  const usersSessions = LocalStorage.getItem("sessions");
   const users = [
     { nome: "admin", login: "admin", senha: 123123, grupo: "administrador" },
   ];
@@ -17,6 +17,6 @@ export default boot(() => {
   }
 
   if (!usersSessions) {
-    LocalStorage.set("usersSessions", JSON.stringify(sessions));
+    LocalStorage.set("sessions", JSON.stringify(sessions));
   }
 });

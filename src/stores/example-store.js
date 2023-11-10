@@ -35,3 +35,12 @@ export const usersDB = defineStore("users", {
   },
   actions: {},
 });
+
+export const userSession = defineStore("userSessionData", {
+  state: () => ({
+    data: LocalStorage.getItem("userSession"),
+  }),
+  getters: {
+    get: (state) => state.data,
+  },
+});

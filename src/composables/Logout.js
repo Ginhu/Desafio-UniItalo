@@ -1,7 +1,4 @@
-import { useRouter } from "vue-router";
-import { useQuasar } from "quasar";
+import { LocalStorage } from "quasar";
 export default function logout() {
-  const $q = useQuasar();
-  const router = useRouter();
-  return console.log("logout");
+  LocalStorage.remove("userSession");
 }

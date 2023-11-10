@@ -1,10 +1,5 @@
 <template>
   <q-page>
-    <!-- <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    /> -->
     <div class="row">
       <div class="col-12 col-md-4 col-lg-4 q-pa-xl">
         <div class="text-center">
@@ -54,10 +49,16 @@
 </template>
 
 <script setup>
-import { useCounterStore, usersDB } from "src/stores/example-store";
-import { ref } from "vue";
+import {
+  useCounterStore,
+  usersDB,
+  userSession,
+} from "src/stores/example-store";
+import { ref, onMounted } from "vue";
 import useNotify from "../composables/UserNotify";
 import { useRouter } from "vue-router";
+import loginSession from "src/composables/Login";
+import { LocalStorage } from "quasar";
 
 const form = ref({
   login: {
@@ -71,40 +72,47 @@ const form = ref({
 });
 
 const notifyError = useNotify();
-const counter = useCounterStore();
 const users = usersDB();
 const router = useRouter();
+const session = userSession();
+const newSessions = loginSession();
+
+onMounted(() => {
+  if (LocalStorage.has("userSession")) {
+    const sessions = JSON.parse(LocalStorage.getItem("sessions"));
+    let sessionActive = false;
+    for (let i = 0; i < sessions.length; i++) {
+      if (sessions[i].token === session.data.token) {
+        sessionActive = true;
+        router.push({ name: "home" });
+        break;
+      }
+    }
+  }
+});
 
 const submitLogin = () => {
-  /* counter.increment(); */
   const usersArray = users.all;
   const login = form.value.login.value;
   const password = Number(form.value.password.value);
-  /* const data = usersArray.map((element) => {
-    if (element.nome === login && element.senha === password) {
-      return element;
-    }
-  }); */
+  let usera;
 
   let teste = false;
 
   for (let i = 0; i < usersArray.length; i++) {
     if (usersArray[i].login === login && usersArray[i].senha === password) {
       teste = true;
+      usera = usersArray[i].nome;
       break;
     }
   }
 
   if (teste) {
+    newSessions(usera);
     return router.push({ name: "home" });
   } else {
     return notifyError();
   }
-
-  /*  const locals = counter.get;
-      console.log(locals); */
-  /* console.log(counter.count);
-      console.log("A contagem dupla é ", counter.doubleCount); */
 };
 </script>
 <style scoped>
