@@ -5,10 +5,10 @@ export default function loginSession() {
   const token = uuid();
   const sessions = JSON.parse(LocalStorage.getItem("sessions"));
 
-  const newSessions = (user) => {
-    const updatedSession = [...sessions, { user, token }];
+  const newSessions = (nome) => {
+    const updatedSession = [...sessions, { nome, token }];
     LocalStorage.set("sessions", JSON.stringify(updatedSession));
-    LocalStorage.set("userSession", { user, token });
+    LocalStorage.set("userSession", { nome, token });
   };
 
   return newSessions;

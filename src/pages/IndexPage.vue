@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-import { usersDB, userSession } from "src/stores/example-store";
+import { usersDB, userSession } from "src/stores/store";
 import { ref, onMounted, toRaw } from "vue";
 import useNotify from "../composables/UserNotify";
 import { useRouter } from "vue-router";

@@ -37,7 +37,7 @@
 <script setup>
 import { ref, toRaw, onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { usersDB } from "src/stores/example-store";
+import { usersDB } from "src/stores/store";
 import { LocalStorage } from "quasar";
 
 const form = ref({

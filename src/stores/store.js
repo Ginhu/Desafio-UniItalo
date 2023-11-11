@@ -4,7 +4,7 @@ import { toRaw } from "vue";
 
 export const usersDB = defineStore("users", {
   state: () => ({
-    data: JSON.parse(LocalStorage.getItem("usersDB")),
+    data: [],
   }),
   getters: {
     all: (state) => toRaw(state.data),

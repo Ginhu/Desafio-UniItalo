@@ -42,7 +42,7 @@
 import { onMounted, toRaw, ref } from "vue";
 import { useRouter } from "vue-router";
 import { LocalStorage, useQuasar } from "quasar";
-import { usersDB } from "src/stores/example-store";
+import { usersDB } from "src/stores/store";
 import { columns } from "src/composables/Columns";
 
 const router = useRouter();
