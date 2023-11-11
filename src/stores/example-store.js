@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { LocalStorage } from "quasar";
+import { toRaw } from "vue";
 
 export const useCounterStore = defineStore("counter", {
   state: () => ({
@@ -28,12 +29,16 @@ export const useCounterStore = defineStore("counter", {
 
 export const usersDB = defineStore("users", {
   state: () => ({
-    data: JSON.parse(LocalStorage.getItem("usersDB")),
+    data: [],
   }),
   getters: {
     all: (state) => state.data,
   },
-  actions: {},
+  actions: {
+    update(n) {
+      this.data = n;
+    },
+  },
 });
 
 export const userSession = defineStore("userSessionData", {

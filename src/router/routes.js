@@ -25,6 +25,22 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/",
+    component: () => import("layouts/AdminLayout.vue"),
+    children: [
+      {
+        path: "admin",
+        name: "admin",
+        component: () => import("pages/admin/AdminPage.vue"),
+      },
+      {
+        path: "form/:nome?",
+        name: "form",
+        component: () => import("pages/admin/Form.vue"),
+      },
+    ],
+  },
 ];
 
 export default routes;

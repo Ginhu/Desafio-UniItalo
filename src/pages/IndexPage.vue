@@ -28,10 +28,14 @@
             v-model="form.password.value"
             :error="form.password.error"
             :error-message="form.password.msg"
+            :type="visible ? 'text' : 'password'"
           >
-            <template v-slot:prepend> <q-icon name="lock"></q-icon> </template>
+            <template v-slot:prepend> <q-icon name="lock" /> </template>
             <template v-slot:append>
-              <q-icon name="visibility_off"></q-icon>
+              <q-icon
+                @click="switchVisibility"
+                :name="visible ? 'visibility' : 'visibility_off'"
+              />
             </template>
           </q-input>
         </div>
@@ -54,7 +58,7 @@ import {
   usersDB,
   userSession,
 } from "src/stores/example-store";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, toRaw } from "vue";
 import useNotify from "../composables/UserNotify";
 import { useRouter } from "vue-router";
 import loginSession from "src/composables/Login";
@@ -78,6 +82,9 @@ const session = userSession();
 const newSessions = loginSession();
 
 onMounted(() => {
+  const usersDB = JSON.parse(LocalStorage.getItem("usersDB"));
+  users.update(usersDB);
+
   if (LocalStorage.has("userSession")) {
     const sessions = JSON.parse(LocalStorage.getItem("sessions"));
     let sessionActive = false;
@@ -91,10 +98,16 @@ onMounted(() => {
   }
 });
 
+let visible = false;
+
+const switchVisibility = () => {
+  visible = !visible;
+  console.log(visible);
+};
 const submitLogin = () => {
-  const usersArray = users.all;
+  const usersArray = toRaw(users.all);
   const login = form.value.login.value;
-  const password = Number(form.value.password.value);
+  const password = form.value.password.value;
   let usera;
 
   let teste = false;
@@ -107,7 +120,10 @@ const submitLogin = () => {
     }
   }
 
-  if (teste) {
+  if (teste && login === "admin") {
+    newSessions(usera);
+    return router.push({ name: "admin" });
+  } else if (teste && login !== "admin") {
     newSessions(usera);
     return router.push({ name: "home" });
   } else {
