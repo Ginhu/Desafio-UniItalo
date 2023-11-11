@@ -9,38 +9,40 @@
         <div class="text-h4 text-bold q-mt-lg">Desafio Uni Ítalo</div>
         <div class="text-grey-7">Please login your account below</div>
         <div class="column">
-          <q-input
-            class="q-mt-sm"
-            outlined
-            label="Enter login"
-            v-model="form.login.value"
-            :error="form.login.error"
-            :error-message="form.login.msg"
-          >
-            <template v-slot:prepend>
-              <q-icon name="email"></q-icon>
-            </template>
-          </q-input>
-          <q-input
-            class="q-mt-sm"
-            outlined
-            label="Enter password"
-            v-model="form.password.value"
-            :error="form.password.error"
-            :error-message="form.password.msg"
-            :type="visible ? 'text' : 'password'"
-          >
-            <template v-slot:prepend> <q-icon name="lock" /> </template>
-            <template v-slot:append>
-              <q-icon
-                @click="switchVisibility"
-                :name="visible ? 'visibility' : 'visibility_off'"
-              />
-            </template>
-          </q-input>
+          <q-form>
+            <q-input
+              class="q-mt-sm"
+              outlined
+              label="Enter login"
+              v-model="form.login.value"
+              :error="form.login.error"
+              :error-message="form.login.msg"
+            >
+              <template v-slot:prepend>
+                <q-icon name="email"></q-icon>
+              </template>
+            </q-input>
+            <q-input
+              class="q-mt-sm"
+              outlined
+              label="Enter password"
+              v-model="form.password.value"
+              :error="form.password.error"
+              :error-message="form.password.msg"
+              :type="visible ? 'text' : 'password'"
+            >
+              <template v-slot:prepend> <q-icon name="lock" /> </template>
+              <template v-slot:append>
+                <q-icon
+                  @click="switchVisibility"
+                  :name="visible ? 'visibility' : 'visibility_off'"
+                />
+              </template>
+            </q-input>
+          </q-form>
         </div>
         <div class="column">
-          <q-btn class="q-mt-sm" color="indigo" @click="submitLogin"
+          <q-btn class="q-mt-sm" color="indigo" @click.prevent="submitLogin"
             >Login</q-btn
           >
         </div>
