@@ -65,6 +65,7 @@ const isUpdate = computed(() => route.params.nome);
 const userState = usersDB();
 let data = {};
 let index;
+
 onMounted(() => {
   if (isUpdate.value) {
     userData(isUpdate.value);
@@ -90,44 +91,33 @@ const userData = (nome) => {
 };
 
 const click = () => {
-  if (
-    isUpdate.value &&
-    form.value.nome.value &&
-    form.value.login.value &&
-    form.value.senha.value &&
-    form.value.grupo.value
-  ) {
-    const user = {
-      nome: form.value.nome.value,
-      login: form.value.login.value,
-      senha: form.value.senha.value,
-      grupo: form.value.grupo.value,
-    };
-
-    const users = toRaw(userState.all);
-    users[index] = user;
-    userState.update(users);
-    LocalStorage.set("usersDB", JSON.stringify(users));
-    return router.push({ name: "admin" });
-  }
-
+  let userData;
   if (
     form.value.nome.value &&
     form.value.login.value &&
     form.value.senha.value &&
     form.value.grupo.value
   ) {
-    const user = {
+    userData = {
       nome: form.value.nome.value,
       login: form.value.login.value,
       senha: form.value.senha.value,
       grupo: form.value.grupo.value,
     };
-    const users = toRaw(userState.all);
-    users.push(user);
-    userState.update(users);
-    LocalStorage.set("usersDB", JSON.stringify(users));
-    router.push({ name: "admin" });
+  } else {
+    return;
   }
+
+  const users = toRaw(userState.all);
+
+  if (isUpdate.value) {
+    users[index] = userData;
+  } else {
+    users.push(userData);
+  }
+
+  userState.update(users);
+  LocalStorage.set("usersDB", JSON.stringify(users));
+  router.push({ name: "admin" });
 };
 </script>

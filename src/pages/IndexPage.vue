@@ -53,11 +53,7 @@
 </template>
 
 <script setup>
-import {
-  useCounterStore,
-  usersDB,
-  userSession,
-} from "src/stores/example-store";
+import { usersDB, userSession } from "src/stores/example-store";
 import { ref, onMounted, toRaw } from "vue";
 import useNotify from "../composables/UserNotify";
 import { useRouter } from "vue-router";
@@ -102,33 +98,27 @@ let visible = false;
 
 const switchVisibility = () => {
   visible = !visible;
-  console.log(visible);
 };
+
 const submitLogin = () => {
   const usersArray = toRaw(users.all);
   const login = form.value.login.value;
   const password = form.value.password.value;
-  let usera;
-
-  let teste = false;
 
   for (let i = 0; i < usersArray.length; i++) {
     if (usersArray[i].login === login && usersArray[i].senha === password) {
-      teste = true;
-      usera = usersArray[i].nome;
-      break;
+      const userName = usersArray[i].nome;
+      newSessions(userName);
+
+      if (login === "admin") {
+        return router.push({ name: "admin" });
+      } else {
+        return router.push({ name: "home" });
+      }
     }
   }
 
-  if (teste && login === "admin") {
-    newSessions(usera);
-    return router.push({ name: "admin" });
-  } else if (teste && login !== "admin") {
-    newSessions(usera);
-    return router.push({ name: "home" });
-  } else {
-    return notifyError();
-  }
+  return notifyError();
 };
 </script>
 <style scoped>

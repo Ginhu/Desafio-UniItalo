@@ -12,6 +12,4 @@ export default function loginSession() {
   };
 
   return newSessions;
-  /* const newSessions = (user) => [...sessions, { user, token }];
-  LocalStorage.set("usersSessions", JSON.stringify(newSessions)); */
 }

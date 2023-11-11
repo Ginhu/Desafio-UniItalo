@@ -43,6 +43,7 @@ import { onMounted, toRaw, ref } from "vue";
 import { useRouter } from "vue-router";
 import { LocalStorage, useQuasar } from "quasar";
 import { usersDB } from "src/stores/example-store";
+import { columns } from "src/composables/Columns";
 
 const router = useRouter();
 const users = usersDB();
@@ -77,36 +78,5 @@ const remove = (data) => {
   });
 };
 
-const columns = [
-  {
-    name: "nome",
-    align: "center",
-    label: "Nome",
-    field: "nome",
-  },
-  {
-    name: "login",
-    align: "center",
-    label: "Login",
-    field: "login",
-  },
-  {
-    name: "senha",
-    align: "center",
-    label: "Senha",
-    field: "senha",
-  },
-  {
-    name: "grupo",
-    align: "center",
-    label: "Grupo",
-    field: "grupo",
-  },
-  {
-    name: "actions",
-    align: "center",
-    label: "Actions",
-    field: "actions",
-  },
-];
+columns;
 </script>

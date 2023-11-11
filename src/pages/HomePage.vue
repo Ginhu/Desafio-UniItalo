@@ -21,25 +21,4 @@ onMounted(() => {
     router.push({ name: "login" });
   }
 });
-
-/* const submitLogin = () => {
-  const usersArray = users.all;
-  const login = form.value.login.value;
-  const password = Number(form.value.password.value);
-
-  let teste = false;
-
-  for (let i = 0; i < usersArray.length; i++) {
-    if (usersArray[i].login === login && usersArray[i].senha === password) {
-      teste = true;
-      break;
-    }
-  }
-
-  if (teste) {
-    return router.push({ name: "home" });
-  } else {
-    return notifyError();
-  }
-}; */
 </script>

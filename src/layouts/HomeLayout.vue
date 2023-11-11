@@ -67,29 +67,7 @@ import { defineComponent, ref } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import logout from "../composables/Logout";
 import { useRouter } from "vue-router";
-
-const linksList = [
-  {
-    title: "Area do Aluno",
-    icon: "school",
-  },
-  {
-    title: "Fale com um tutor",
-    icon: "chat",
-  },
-  {
-    title: "Forum",
-    icon: "record_voice_over",
-  },
-  {
-    title: "Financeiro",
-    icon: "savings",
-  },
-  {
-    title: "Jurídico",
-    icon: "work",
-  },
-];
+import { linksList } from "src/composables/LinkList";
 
 export default defineComponent({
   name: "MainLayout",
